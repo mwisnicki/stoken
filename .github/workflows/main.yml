@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: fedora:latest
+    steps:
+      - uses: actions/checkout@v2
+      # TODO reuse image
+      - name: Install dependencies
+        run: |
+          yum groupinstall -y "Development Tools"
+          yum install -y git autoconf automake libtool mingw32-gnutls mingw32-libxml2 mingw32-gtk3
+      - name: Build
+        run: |
+          cd $GITHUB_WORKSPACE
+          bash autogen.sh
+          mingw32-configure
+          make winpkg
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2.2.3
+        with:
+          name: winpkg
+          path: winpkg.zip
+      - name: GH Release
+        uses: softprops/action-gh-release@v0.1.5
+        with:
+          files: winpkg.zip
