@@ -39,3 +39,6 @@ tmp.debian
 winpkg/
 winpkg.zip
 *.exe
+
+# VSCode
+.vscode/
