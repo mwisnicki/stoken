@@ -46,6 +46,7 @@ bin_PROGRAMS		+= stoken-gui
 stoken_gui_SOURCES	= src/gui.c src/common.c
 stoken_gui_CFLAGS	= $(AM_CFLAGS) $(GTK_CFLAGS)
 stoken_gui_CPPFLAGS	= $(AM_CPPFLAGS) -DUIDIR=\"$(uidir)\"
+stoken_gui_LDFLAGS	= $(LDFLAGS) $(LDFLAGS_WINDOW)
 stoken_gui_LDADD	= $(LDADD) $(CRYPTO_LIBS) libstoken.la $(GTK_LIBS)
 
 dist_man_MANS		+= stoken-gui.1

@@ -27,6 +27,13 @@ AC_PROG_CC
 AM_PROG_CC_C_O
 AC_CONFIG_FILES([Makefile])
 
+LDFLAGS_WINDOW=""
+case $host in
+  *-*-mingw*)
+  	LDFLAGS_WINDOW="-Wl,-subsystem,windows" ;;
+esac
+AC_SUBST([LDFLAGS_WINDOW])
+
 # --enable-debug
 
 AC_ARG_ENABLE(
