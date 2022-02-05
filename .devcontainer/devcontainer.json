@@ -1,0 +1,12 @@
+{
+	"name": "Fedora for stoken development",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"settings": {},
+	"extensions": [
+		"maelvalais.autoconf",
+		"ms-vscode.cpptools",
+		"ms-vscode.cpptools-themes"
+	],
+}
