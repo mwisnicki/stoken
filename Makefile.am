@@ -112,9 +112,11 @@ if ENABLE_GUI
 	cp .libs/stoken-gui.exe winpkg/
 	cp `./win32deps.pl .libs/stoken-gui.exe` winpkg/
 	cp gui/*.{ui,png} winpkg/
+	mkdir -p winpkg/share/icons
+	cp -r /usr/i686-w64-mingw32/sys-root/mingw/share/icons/Adwaita/ winpkg/share/icons/
 else
 	cp .libs/stoken.exe winpkg/
 	cp `./win32deps.pl .libs/stoken.exe` winpkg/
 endif
 	rm -f winpkg.zip
-	zip -r winpkg.zip winpkg/
+	(cd winpkg && zip -r ../winpkg.zip .)
