@@ -35,11 +35,11 @@ jobs:
           name: stoken-win32
           path: stoken-win32.zip
       - name: Rename release artifact
-        if: ${{ env.is_release == 'true' }}
+        if: env.is_release
         run: |
           mv stoken-win32.zip stoken-${{ github.event.release.tag_name }}-win32.zip
       - name: GH Release
-        if: ${{ env.is_release == 'true' }}
+        if: env.is_release
         uses: softprops/action-gh-release@v0.1.14
         with:
           files: stoken-v*-win32.zip
