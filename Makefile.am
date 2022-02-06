@@ -119,5 +119,5 @@ else
 	cp .libs/stoken.exe winpkg/
 	cp `./win32deps.pl .libs/stoken.exe` winpkg/
 endif
-	rm -f winpkg.zip
-	(cd winpkg && zip -r ../winpkg.zip .)
+	rm -f stoken-win32.zip
+	(cd winpkg && zip -r ../stoken-win32.zip .)

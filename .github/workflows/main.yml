@@ -7,11 +7,15 @@ on:
   pull_request:
     branches: [ master ]
   workflow_dispatch:
+  release:
+    types: [created]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     container: fedora:latest
+    env:
+      is_release: ${{ github.event_name == 'release' && github.event.action == 'created' }}
     steps:
       - uses: actions/checkout@v2
       # TODO reuse image
@@ -28,10 +32,14 @@ jobs:
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: winpkg
-          path: winpkg.zip
+          name: stoken-win32
+          path: stoken-win32.zip
+      - name: Rename release artifact
+        if: ${{ env.is_release == 'true' }}
+        run: |
+          mv stoken-win32.zip stoken-${{ github.event.release.tag_name }}-win32.zip
       - name: GH Release
-        if: startsWith(github.ref, 'refs/tags/')
+        if: ${{ env.is_release == 'true' }}
         uses: softprops/action-gh-release@v0.1.14
         with:
-          files: winpkg.zip
+          files: stoken-v*-win32.zip
